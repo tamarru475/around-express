@@ -2,6 +2,7 @@ const cardsRouter = require('express').Router();
 const fsPromises = require('fs').promises;
 const path = require('path');
 
+
 const CARDS_PATH = path.join(__dirname, '../data/cards.json');
 
 cardsRouter.get('/cards', (req, res) => {

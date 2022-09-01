@@ -1,18 +1,16 @@
 const usersRouter = require('express').Router();
-const fsPromises = require('fs').promises;
 const path = require('path');
 
-const USERS_PATH = path.join(__dirname, '../data/users.json');
+const User = require('../modles/user');
+const { createUser } = require('../controllers/user');
+
 
 usersRouter.get('/users', (req, res) => {
-  fsPromises.readFile(USERS_PATH, { encoding: 'utf8' })
-    .then((users) => res.send(JSON.parse(users)))
-    .catch(() => res.status(500).send({ message: 'An error has occurred on the server' }));
+  User.find({}).catch(() => res.status(500).send({ message: 'An error has occurred on the server' }));
 });
 
 usersRouter.get('/users/:id', (req, res) => {
-  fsPromises
-    .readFile(USERS_PATH, { encoding: 'utf8' })
+  User.findById(req.params.id)
     .then((users) => {
       const parsedUsersData = JSON.parse(users);
       const reqUser = parsedUsersData.find((user) => user._id === req.params.id);
@@ -24,5 +22,7 @@ usersRouter.get('/users/:id', (req, res) => {
     })
     .catch(() => res.status(500).send({ message: 'An error has occurred on the server' }));
 });
+
+usersRouter.post('/users', createUser);
 
 module.exports = usersRouter;
