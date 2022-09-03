@@ -45,6 +45,8 @@ module.exports.deleteCardById = (req, res) => {
     .catch((err) => {
       if (err.name === 'Error not found') {
         return res.status(ErrorNotFound).send({ message: 'Error not found, there is no card with this Id' });
+      } else if (err.name === 'CastError') {
+        return res.status(ValidationError).send({ message: 'The Id number provided is invalid' });
       }
       return res.status(SeverError).send({ message: 'An error has occurred on the server' });
     });
@@ -62,6 +64,8 @@ module.exports.likeCard = (req, res) => {
     .catch((err) => {
       if (err.name === 'Error not found') {
         return res.status(err.statusCode).send({ message: `${err.name} ${err.statusCode} has accured ${err.message}` });
+      } else if (err.name === 'CastError') {
+        return res.status(ValidationError).send({ message: 'The Id number provided is invalid' });
       }
       return res.status(SeverError).send({ message: 'An error has occurred on the server' });
     });
@@ -79,6 +83,8 @@ module.exports.dislikeCard = (req, res) => {
     .catch((err) => {
       if (err.name === 'notFoundError') {
         return res.statu(err.statusCode).send({ message: `${err.name} ${err.statusCode} has accured ${err.message}` });
+      } else if (err.name === 'CastError') {
+        return res.status(ValidationError).send({ message: 'The Id number provided is invalid' });
       }
       return res.status(500).send({ message: 'An error has occurred on the server' });
     });
