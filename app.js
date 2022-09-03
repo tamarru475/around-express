@@ -9,6 +9,13 @@ const app = express();
 mongoose.connect('mongodb://localhost:27017/aroundb');
 app.use(express.json());
 
+app.use((req, res, next) => {
+  req.user = {
+    _id: '631054df5b795b63c88556a3',
+  };
+  next();
+});
+
 app.use('/', usersRouter, cardsRouter);
 
 app.get('*', (req, res) => {
