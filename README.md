@@ -6,9 +6,15 @@
 
 - precessing get requests for all users post in the server
 
+- processing get requests for all cards post in the server
+
+- processing post, path, and put requests to either both cards and users features
+
+- processing delete to cards and card like feature
+
 ## Directories
 
-`/data` — JSON files to temporarily emulate database integration.
+mongoDb — the database.
 
 `/routes` — routing files.
 
@@ -18,6 +24,7 @@ All other directories are optional and may be created by the developer if necess
 
 - node.js
 - express.js
+- mongoose
 
 ## Running the Project
 
